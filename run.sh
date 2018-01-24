@@ -35,7 +35,7 @@ case "$1" in
     exit $?
     ;;
   init)
-    if [[ ! -f .initialized ]]; then
+    if [[ ! -f ${DATA_FOLDER}/.initialized ]]; then
       echo "==> Aplication not initialized. Initializing now..."
 
       # Install node modules
@@ -47,8 +47,16 @@ case "$1" in
       mv public ${DATA_FOLDER}
       ln -sf ${DATA_FOLDER}/public public
 
+      # Fix permissions
+      chown -R bitnami:bitnami ${APP_FOLDER}
+      chown -R bitnami:bitnami ${DATA_FOLDER}
+      chown root:root ${APP_FOLDER}/run.sh
+
+      # Install node modules
+      su bitnami npm install
+
       # Touch semaphore
-      touch .initialized
+      su bitnami ${DATA_FOLDER}/.initialized
     else
       echo "==> Aplication already initialized. Skipping..."
     fi
