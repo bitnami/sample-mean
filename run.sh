@@ -22,17 +22,17 @@ stop () {
 
 case "$1" in
   start)
-    su - bitnami -c "pm2 start ${APP_FOLDER}/server.js --name node-todo"
+    pm2 start ${APP_FOLDER}/server.js --name node-todo --uid bitnami --gid bitnami
     exit $?
     ;;
   stop)
-    su - bitnami -c "pm2 stop node-todo"
+    pm2 stop node-todo --uid bitnami --gid bitnami
     exit $?
     ;;
   restart|force-reload|reload)
     # `--update-env` will allow to load environment variables from /bitnami/.env
     # in case they changed
-    su - bitnami -c "pm2 restart node-todo --update-env"
+    pm2 restart node-todo --update-env --uid bitnami --gid bitnami
     exit $?
     ;;
   init)
@@ -45,7 +45,7 @@ case "$1" in
       # Create data folder
       mkdir -p ${DATA_FOLDER}
       # Touch semaphore
-      su - bitnami -c "touch ${DATA_FOLDER}/.initialized"
+      touch ${DATA_FOLDER}/.initialized
 
       # Move static files to mount point
       mv public ${DATA_FOLDER}
@@ -53,6 +53,7 @@ case "$1" in
 
       # Fix permissions
       chown -R bitnami:bitnami ${DATA_FOLDER}
+      chmod 600 ${DATA_FOLDER}/.initialized
     else
       echo "==> Data already initialized. Skipping..."
       # Link static files
