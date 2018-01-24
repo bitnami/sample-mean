@@ -57,7 +57,7 @@ case "$1" in
       su bitnami npm install
 
       # Touch semaphore
-      su bitnami ${DATA_FOLDER}/.initialized
+      su bitnami touch ${DATA_FOLDER}/.initialized
     else
       echo "==> Aplication already initialized. Skipping..."
     fi
