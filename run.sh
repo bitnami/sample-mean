@@ -38,8 +38,10 @@ case "$1" in
   init)
     # Sleep randomly between 1 and 10 seconds to avoid race conditions
     sleep $(($RANDOM % 10 + 1))
+
+    # Data initialization
     if [[ ! -f ${DATA_FOLDER}/.initialized ]]; then
-      echo "==> Aplication not initialized. Initializing now..."
+      echo "==> Data not initialized. Initializing now..."
       # Create data folder
       mkdir -p ${DATA_FOLDER}
       # Touch semaphore
@@ -50,18 +52,23 @@ case "$1" in
       ln -sf ${DATA_FOLDER}/public ${APP_FOLDER}/public
 
       # Fix permissions
-      chown -R bitnami:bitnami ${APP_FOLDER}
       chown -R bitnami:bitnami ${DATA_FOLDER}
-      chown root:root ${APP_FOLDER}/run.sh
-
-      # Install dependencies
-      su - bitnami -c "cd ${APP_FOLDER}; npm install"
     else
-      echo "==> Aplication already initialized. Skipping..."
+      echo "==> Data already initialized. Skipping..."
       # Link static files
       rm -rf ${APP_FOLDER}/public
       ln -sf ${DATA_FOLDER}/public ${APP_FOLDER}/public
     fi
+
+    # Application initialization
+    echo "==> Initializing application..."
+
+    # Fix permissions
+    chown -R bitnami:bitnami ${APP_FOLDER}
+    chown root:root ${APP_FOLDER}/run.sh
+
+    # Install dependencies
+    su - bitnami -c "cd ${APP_FOLDER}; npm install"
     exit 0
     ;;
   *)
