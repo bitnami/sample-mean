@@ -64,7 +64,7 @@ Your application should include a run.sh script like the one included in this re
 
 * It must include a `start()` hook with instructions to start the application. In this example we are using [pm2](http://pm2.keymetrics.io/) to start the application as it handles the monitoring and process management for us.
 
-  If you want to use `npm` directly you should take care of this tasks manually. For example:
+  If you want to use `npm` directly you should take care of these tasks manually. For example:
 
   ```bash
   start () {
