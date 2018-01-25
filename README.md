@@ -106,7 +106,7 @@ The connection to the database should be possible using the different environmen
 - **DATABASE_NAME:** Database name
 - **DATABASE_CONNECTION_OPTIONS:** Database connection options
 
-In this example the database configuration is in the  [database.js](https://github.com/bitnami/sample-mean/blob/master/config/database.js) file:
+In this example the database configuration is in the [database.js](https://github.com/bitnami/sample-mean/blob/master/config/database.js) file:
 
 ```javascript
 const databaseHost = process.env.DATABASE_HOST;

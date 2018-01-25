@@ -2,24 +2,9 @@
 
 # Load deployment environment
 . /bitnami/.env
-export PORT=80
 
 # Move to application folder first
 cd ${APP_FOLDER}
-
-# TODOC: Bash + npm style
-start () {
-  npm start &
-  ps x -o  "%p %r" | grep $! | awk '{print $2}' > ${APP_FOLDER}/app.pid
-}
-
-stop () {
-  pid=$(cat ${APP_FOLDER}/app.pid)
-  if [ -n "${pid}" ]; then
-    kill -SIGTERM -- -${pid}
-    rm ${APP_FOLDER}/app.pid
-  fi
-}
 
 case "$1" in
   start)
