@@ -48,7 +48,7 @@ case "$1" in
       touch ${DATA_FOLDER}/.initialized
 
       # Move static files to mount point
-      mv public ${DATA_FOLDER}
+      mv ${APP_FOLDER}/public ${DATA_FOLDER}
       ln -sf ${DATA_FOLDER}/public ${APP_FOLDER}/public
 
       # Fix permissions
