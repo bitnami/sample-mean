@@ -2,7 +2,7 @@
 
 This application is an example of how to deploy Node.js applications in high availability mode in the Azure cloud.
 
-All the configuration related to the application and the database is made by environment variables in the Azure interface and passed to each application node via an env file.
+All the configuration related to the application and the database is made by environment variables in the Azure interface and passed to each application node via an env file. If your application fulfill the next requirements you will be able to deploy several instances of your application working behing a LoadBalancer and with a shared filesystem for public files in just a few minutes.
 
 # Requirements:
 
@@ -90,7 +90,7 @@ Your application should include a run.sh script like the one included in this re
   - If so, we create the `DATA_FOLDER` folder, move the public directory there, create the semaphore and fix permissions.
   - If the data is already initialized, we just delete the public folder from the APP_FOLDER and create a symlink to DATA_FOLDER/public
 
-  Finally we initialize the application by running `npm install` to download or update the dependencies.
+  Finally, we initialize the application by running `npm install` to download or update the dependencies.
 
 ## Database configuration
 
