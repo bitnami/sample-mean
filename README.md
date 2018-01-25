@@ -10,17 +10,18 @@ For your application to be compatible with the Node.js High-Availability Cluster
 
 ## Server port
 
-The Node.js High-Availability Cluster template creates a LoadBalancer on the port 80 that redirects HTTP traffic to port **8080**.
+The Node.js High-Availability Cluster template creates a LoadBalancer on the port 80 that redirects HTTP traffic to an unprivileged port. This port is accessible using the **BACKEND_PORT** environment variable.
+
 In this example the port is configured in the [server.js](https://github.com/bitnami/sample-mean/blob/master/server.js) file:
 
 ```javascript
-var port = process.env.PORT || 8080; 				// set the port
+var port = process.env.BACKEND_PORT || process.env.PORT || 8080; 				// set the port
 ```
 
 ## Data folder
 
 The Node.js High-Availability Cluster configures a shared filesystem between the application nodes so all your public assets are synchronized between your application nodes.
-The folder where you would store public folder should be configured using the environment variables **DATA_FOLDER**.
+You should configure the folder to store static files using the **DATA_FOLDER** environment variable.
 
 In this example this location is configured in the [paths.js](https://github.com/bitnami/sample-mean/blob/master/config/paths.js) file:
 
@@ -45,14 +46,16 @@ Your application should include a run.sh script like the one included in this re
     #
     # Deployment environment variables
     #
+
     export DATA_FOLDER="/bitnami/app"
     export APP_FOLDER="/app"
-    export DATABASE_USER="test-cosmos"
-    export DATABASE_NAME="test-todo"
-    export DATABASE_PASSWORD="nE61GfgEELjLFgOAG6qcEkK7MrYD20XicgsZPstul1iBMRKZzgT3mJapxdXt1pxpxoNCW30LTRQAHfNQeGTr8Q=="
-    export DATABASE_HOST="provisioner-peer"
-    export DATABASE_PORT="10255"
-    export DATABASE_CONNECTION_OPTIONS="ssl=true&replicaSet=globaldb"
+    export DATABASE_USER="app_user"
+    export DATABASE_NAME="app_db"
+    export DATABASE_PASSWORD="app_password"
+    export DATABASE_HOST="app_host"
+    export DATABASE_PORT="app_port"
+    export DATABASE_CONNECTION_OPTIONS="app_connection_options"
+    export BACKEND_PORT="8080"
     export PATH="/opt/bitnami/nami/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/bitnami/node/bin:/opt/bitnami/python/bin:/opt/bitnami/nami/bin"
     ```
 
@@ -87,8 +90,8 @@ Your application should include a run.sh script like the one included in this re
   ```
 
   Then we check if we should initialize the data.
-  - If so, we create the `DATA_FOLDER` folder, move the public directory there, create the semaphore and fix permissions.
-  - If the data is already initialized, we just delete the public folder from the APP_FOLDER and create a symlink to DATA_FOLDER/public
+  - If so, we create the `${DATA_FOLDER}` folder, move the public directory there, create the semaphore and fix permissions.
+  - If the data is already initialized, we just delete the public folder from the `${APP_FOLDER}` and create a symlink to `${DATA_FOLDER}/public`
 
   Finally, we initialize the application by running `npm install` to download or update the dependencies.
 
@@ -120,9 +123,9 @@ module.exports = {
 
 ###### Example for a [MongoDB Cosmos](https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb-introduction) deploy:
 
-- **DATABASE_HOST:** test-mongo-cosmos.documents.azure.com
+- **DATABASE_HOST:** _your_host_.documents.azure.com
 - **DATABASE_PORT:** 10255
-- **DATABASE_NAME:** todo_db
-- **DATABASE_USER:** test-mongo-cosmos
-- **DATABASE_PASSWORD:** 7nzwCMCsy8TseFbF8gEoP06ClaUeKNAjOLAJ0aVQ2qq97ebrvV5zBtH0AL7c4ThHLA908RU07f202u64bTzswg==
-- **DATABASE_CONNECTION_OPTIONS:** ssl=true
+- **DATABASE_NAME:** _your_database_
+- **DATABASE_USER:** _your_user_
+- **DATABASE_PASSWORD:** _your_password_
+- **DATABASE_CONNECTION_OPTIONS:** ssl=true&replicaSet=globaldb
