@@ -3,9 +3,6 @@
 # Load deployment environment
 . /bitnami/.env
 
-# Load balancer will redirect HTTP (port 80) traffic to port 8080
-export PORT=8080
-
 case "$1" in
   start)
     pm2 start ${APP_FOLDER}/server.js --name node-todo --uid bitnami --gid bitnami

@@ -15,7 +15,7 @@ The Node.js High-Availability Cluster template creates a LoadBalancer on the por
 In this example the port is configured in the [server.js](https://github.com/bitnami/sample-mean/blob/master/server.js) file:
 
 ```javascript
-var port = process.env.BACKEND_PORT || process.env.PORT || 8080; 				// set the port
+var port = process.env.BACKEND_PORT || process.env.PORT || 3000; 				// set the port
 ```
 
 ## Data folder
@@ -55,7 +55,7 @@ Your application should include a run.sh script like the one included in this re
     export DATABASE_HOST="app_host"
     export DATABASE_PORT="app_port"
     export DATABASE_CONNECTION_OPTIONS="app_connection_options"
-    export BACKEND_PORT="8080"
+    export BACKEND_PORT="3000"
     export PATH="/opt/bitnami/nami/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/bitnami/node/bin:/opt/bitnami/python/bin:/opt/bitnami/nami/bin"
     ```
 
