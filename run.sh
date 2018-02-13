@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 # Load deployment environment
-. /bitnami/.env
+. /root/.deployment.env
 
 case "$1" in
   start)

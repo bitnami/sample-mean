@@ -45,7 +45,7 @@ Your application should include a run.sh script like the one included in this re
 
     ```bash
     # Load deployment environment
-    . /bitnami/.env
+    . /root/.deployment.env
     ```
 
     The following is an example of the content of this file:
