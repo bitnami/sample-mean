@@ -67,7 +67,7 @@ Your application should include a run.sh script like the one included in this re
     export PATH="/opt/bitnami/nami/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/bitnami/node/bin:/opt/bitnami/python/bin:/opt/bitnami/nami/bin"
     ```
 
-    The permission of this file are 600 and it is only loaded in the `run.sh` script so this environment variables are not available for users logged in the machine.
+    For security reasons, the permissions of this file are 600 and it is only loaded in the `run.sh` script so this environment variables are not available for users logged in the machine.
 
 
 * It must include a `start()` hook with instructions to start the application. In this example we are using [pm2](http://pm2.keymetrics.io/) to start the application as it handles the monitoring and process management for us.
